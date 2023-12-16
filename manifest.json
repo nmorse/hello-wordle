@@ -1,7 +1,7 @@
 {
-    "name": "Hello Wordle",
-    "short_name": "hiWordL",
-    "description": "An App that barely helps you with Wordle, so it is not cheating, right!?",
+    "name": "Wordle Word",
+    "short_name": "WordLWord",
+    "description": "An App that barely helps you with Wordle, so it is not really cheating, right!?",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#333",

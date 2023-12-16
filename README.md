@@ -1,5 +1,5 @@
 # Ψ QSP of Words Ψ
-A simple app that selects words randomly (via Quantum SuperPosition obviously) from a list of Wordle words.
+A simple app that selects words randomly (via collapsing a Quantum Super Position of entangled words, obviously) from a list of all Wordle words.
 
 ## Development
 
