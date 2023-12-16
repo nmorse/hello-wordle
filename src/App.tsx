@@ -2,33 +2,54 @@ import './App.css'
 import { createSignal } from 'solid-js';
 
 function App() {
-  const [pWord, setPWord] = createSignal('')
+  const [pWord, setPWord] = createSignal(randomWord())
+  const [noDoubles, setNoDoubles] = createSignal(false)
 
+  const selectRandomWord = (noDoubles: any, setPWord: any) => () => {
+    const noDoubleLetters = noDoubles()
+    setPWord(randomWord(noDoubleLetters))
+  }
+  
   return (
     <>
-      <h3>Hello Wordle</h3>
-      <div class="animation-container">
-        <h1 class={`name animation-select`}>{pWord()}</h1>
+      <h3>WordleWords</h3>
+      <div >
+        <h1 >{pWord()}</h1>
       </div>
       <div>
-        <button
-          onClick={() => {
-            const number_of_words: number = allWords.length
-            const i = Math.floor(Math.random() * number_of_words)
-            if (allWords[i]) {
-              setPWord(allWords[i])
-            }
-          }
-          }>Pick a Random Wordle Word Please</button>
-
-
-
+        <label for="no-double-letters">no double letters</label>
+        <input type="checkbox" onClick={() => setNoDoubles(!noDoubles())} id="no-double-letters" name="no-double-letters" checked={noDoubles()}></input>
+      </div>
+      <div>
+        <button onClick={selectRandomWord(noDoubles, setPWord)}>
+            Pick a Random Wordle Word { noDoubles() ? "(with no double letters)": ""} Please
+        </button>
       </div>
     </>
   )
 }
 
 export default App
+
+const randomWord = (no_doub: boolean) => {
+  const number_of_words: number = allWords.length
+  let i = Math.floor(Math.random() * number_of_words)
+  while (no_doub && hasDoubleLetters(allWords[i])) {
+    i = Math.floor(Math.random() * number_of_words)
+  }
+  return allWords[i]
+}
+
+const hasDoubleLetters = (w: string) => {
+  for(let c = 0; c < 4; c++) {
+    let check_letter = w[c]
+    for(let i = c+1; i < 5; i++) {
+      if (w[i] === check_letter)
+        return true
+    }
+  }
+  return false
+}
 
 const allWords = [
   "cigar", "rebut", "sissy",
