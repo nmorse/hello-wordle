@@ -1,4 +1,4 @@
-const cacheName = "qspCache"
+const cacheName = "qwwCache"
 const precachedResources = ["/", "/index.html"];
 
 async function precache() {
