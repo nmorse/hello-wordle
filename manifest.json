@@ -1,6 +1,6 @@
 {
     "name": "Wordle Word",
-    "short_name": "WordLWord",
+    "short_name": "WordelWord",
     "description": "An App that barely helps you with Wordle, so it is not really cheating, right!?",
     "start_url": "/",
     "display": "standalone",
