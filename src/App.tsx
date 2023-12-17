@@ -2,7 +2,7 @@ import './App.css'
 import { createSignal } from 'solid-js';
 
 function App() {
-  const [pWord, setPWord] = createSignal(randomWord())
+  const [pWord, setPWord] = createSignal(randomWord(false))
   const [noDoubles, setNoDoubles] = createSignal(false)
 
   const selectRandomWord = (noDoubles: any, setPWord: any) => () => {
