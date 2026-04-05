@@ -59,14 +59,14 @@ function App() {
       </div>
       <div>
         <label for="outList">Out List (comma-separated letters):</label>
-        <input type="text" id="outList" value={outList().join(',')} onInput={(e) => setOutList(e.target.value.split(',').map(s => s.trim()))} />
+        <input type="text" id="outList" value={outList().join(',')} onInput={(e) => setOutList(e.target.value.split(',').map(s => s.toLowerCase().trim()))} />
       </div>
       <div>
-        <input type="text" id="lock0" class="oneCharInput" value={lock0()} onInput={(e) => setLock0(e.target.value)} maxLength="1" />
-        <input type="text" id="lock1" class="oneCharInput" value={lock1()} onInput={(e) => setLock1(e.target.value)} maxLength="1" />
-        <input type="text" id="lock2" class="oneCharInput" value={lock2()} onInput={(e) => setLock2(e.target.value)} maxLength="1" />
-        <input type="text" id="lock3" class="oneCharInput" value={lock3()} onInput={(e) => setLock3(e.target.value)} maxLength="1" />
-        <input type="text" id="lock4" class="oneCharInput" value={lock4()} onInput={(e) => setLock4(e.target.value)} maxLength="1" />
+        <input type="text" id="lock0" class="oneCharInput" value={lock0()} onInput={(e) => setLock0(e.target.value.toLowerCase())} maxLength="1" />
+        <input type="text" id="lock1" class="oneCharInput" value={lock1()} onInput={(e) => setLock1(e.target.value.toLowerCase())} maxLength="1" />
+        <input type="text" id="lock2" class="oneCharInput" value={lock2()} onInput={(e) => setLock2(e.target.value.toLowerCase())} maxLength="1" />
+        <input type="text" id="lock3" class="oneCharInput" value={lock3()} onInput={(e) => setLock3(e.target.value.toLowerCase())} maxLength="1" />
+        <input type="text" id="lock4" class="oneCharInput" value={lock4()} onInput={(e) => setLock4(e.target.value.toLowerCase())} maxLength="1" />
       </div>
       <div>
         <label for="no-double-letters">no double letters</label>
