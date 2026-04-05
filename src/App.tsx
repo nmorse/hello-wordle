@@ -4,17 +4,32 @@ import { createSignal } from 'solid-js';
 // based on 2315 words prime factors are (463, 5), so one less and one more)
 const jumpChoices = [-464, -462, -6, -4, 4, 6, 462, 464]
 
+
 function App() {
   const totalWords = allWords.length
   const jump = jumpChoices[Math.floor(Math.random()*jumpChoices.length)]
   const offset = Math.floor(Math.random()*totalWords)
   const [count, setCount] = createSignal(0)
+  const [lock0, setLock0] = createSignal('')
+  const [lock1, setLock1] = createSignal('')
+  const [lock2, setLock2] = createSignal('')
+  const [lock3, setLock3] = createSignal('')
+  const [lock4, setLock4] = createSignal('')
+  const [outList, setOutList] = createSignal([''])
   const nextIndex = (theCount: number) => Math.abs((theCount+offset)*jump)%totalWords
   const randomWord = (no_doub: boolean) => {
+    const fixedLetters = [lock0(), lock1(), lock2(), lock3(), lock4()]
     let theCount = count();
     let i = nextIndex(++theCount)
-    while (no_doub && hasDoubleLetters(allWords[i])) {
+    let tries = 3500
+    while (tries > 0 && ((no_doub && hasDoubleLetters(allWords[i]))
+       || filteredOut(allWords[i], outList(), fixedLetters))) {
       i = (i + 1) % totalWords
+      tries -= 1
+      theCount++
+    }
+    if (tries <= 0) {
+      return "Error: Too Restrictive"
     }
     setCount(theCount)
     return allWords[i]
@@ -32,10 +47,6 @@ function App() {
       <div>
         <h1 >{pWord()}</h1>
       </div>
-      <div>
-        <label for="no-double-letters">no double letters</label>
-        <input type="checkbox" onClick={() => setNoDoubles(!noDoubles())} id="no-double-letters" name="no-double-letters" checked={noDoubles()}></input>
-      </div>
       <div><button disabled={(count()<=1)} onClick={()=>{
           setCount(count()-2)
           selectRandomWord()
@@ -46,11 +57,46 @@ function App() {
           {`next word (out of all ${totalWords})`}
         </button>
       </div>
+      <div>
+        <label for="outList">Out List (comma-separated letters):</label>
+        <input type="text" id="outList" value={outList().join(',')} onInput={(e) => setOutList(e.target.value.split(',').map(s => s.trim()))} />
+      </div>
+      <div>
+        <input type="text" id="lock0" class="oneCharInput" value={lock0()} onInput={(e) => setLock0(e.target.value)} maxLength="1" />
+        <input type="text" id="lock1" class="oneCharInput" value={lock1()} onInput={(e) => setLock1(e.target.value)} maxLength="1" />
+        <input type="text" id="lock2" class="oneCharInput" value={lock2()} onInput={(e) => setLock2(e.target.value)} maxLength="1" />
+        <input type="text" id="lock3" class="oneCharInput" value={lock3()} onInput={(e) => setLock3(e.target.value)} maxLength="1" />
+        <input type="text" id="lock4" class="oneCharInput" value={lock4()} onInput={(e) => setLock4(e.target.value)} maxLength="1" />
+      </div>
+      <div>
+        <label for="no-double-letters">no double letters</label>
+        <input type="checkbox" onClick={() => setNoDoubles(!noDoubles())} id="no-double-letters" name="no-double-letters" checked={noDoubles()}></input>
+      </div>
+
+
+
+
     </>
   )
 }
 
-export default App
+// true it word has been filtered out
+function filteredOut(w: string, outlist: string[], fixedLetters: string[]) {
+  
+  for (let c = 0; c < 5; c++) {
+    let check_letter = w[c]
+    if (fixedLetters[c] && check_letter !== fixedLetters[c]) {
+      // console.log("no", check_letter)
+      return true
+    }
+
+    if (outlist.some((l: string)=>l===check_letter)) {
+      return true
+    }
+  }
+  return false  
+}
+
 
 
 const hasDoubleLetters = (w: string) => {
@@ -63,6 +109,9 @@ const hasDoubleLetters = (w: string) => {
   }
   return false
 }
+
+export default App
+
 
 // https://github.com/Kinkelin/WordleCompetition/blob/main/data/official/shuffled_real_wordles.txt
 const allWords = [

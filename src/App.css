@@ -5,6 +5,17 @@
   text-align: center;
 }
 
+div {
+  padding: 1rem;
+}
+
+.oneCharInput {
+  width: 2rem;
+  color:green;
+  align-content: center;
+  font-size: larger;
+}
+
 
 .card {
   padding: 2em;
