@@ -10,10 +10,12 @@ div {
 }
 
 .oneCharInput {
-  width: 2rem;
-  color:green;
+  width: 1rem;
+  color:rgb(0, 59, 0);
+  background-color: rgb(193, 255, 193);
   align-content: center;
   font-size: larger;
+  padding-left: .5rem;
 }
 
 

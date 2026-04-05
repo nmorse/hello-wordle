@@ -38,7 +38,18 @@ function App() {
   const [noDoubles, setNoDoubles] = createSignal(false)
   const selectRandomWord = () => {
     const noDoubleLetters = noDoubles()
-    setPWord(randomWord(noDoubleLetters))
+    const currentWord = pWord()
+    let tries = 100
+    let newWord = currentWord
+    while(tries > 0 && newWord === currentWord) {
+      newWord = randomWord(noDoubleLetters)
+      tries -= 1
+    }
+    if (newWord === currentWord) {
+      setCount(0)
+      newWord = "only word found: " + currentWord
+    }
+    setPWord(newWord)
   }
   
   return (
