@@ -69,8 +69,8 @@ function App() {
         </button>
       </div>
       <div>
-        <label for="outList">Out List (comma-separated letters):</label>
-        <input type="text" id="outList" value={outList().join(',')} onInput={(e) => setOutList(e.target.value.split(',').map(s => s.toLowerCase().trim()))} />
+        <label for="outList">Out List:</label>
+        <input type="text" id="outList" value={outList().join('')} onInput={(e) => setOutList(e.target.value.split('').map(s => s.toLowerCase().trim()))} />
       </div>
       <div>
         <input type="text" id="lock0" class="oneCharInput" value={lock0()} onInput={(e) => setLock0(e.target.value.toLowerCase())} maxLength="1" />
