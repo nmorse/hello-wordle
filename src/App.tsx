@@ -70,14 +70,14 @@ function App() {
       </div>
       <div>
         <label for="outList">Out List:</label>
-        <input type="text" id="outList" value={outList().join('')} onInput={(e) => setOutList(e.target.value.split('').map(s => s.toLowerCase().trim()))} />
+        <input type="text" id="outList" value={outList().join('')} onInput={(e) => setOutList(e.target.value.split('').map(s => s.toUpperCase().trim()))} />
       </div>
       <div>
-        <input type="text" id="lock0" class="oneCharInput" value={lock0()} onInput={(e) => setLock0(e.target.value.toLowerCase())} maxLength="1" />
-        <input type="text" id="lock1" class="oneCharInput" value={lock1()} onInput={(e) => setLock1(e.target.value.toLowerCase())} maxLength="1" />
-        <input type="text" id="lock2" class="oneCharInput" value={lock2()} onInput={(e) => setLock2(e.target.value.toLowerCase())} maxLength="1" />
-        <input type="text" id="lock3" class="oneCharInput" value={lock3()} onInput={(e) => setLock3(e.target.value.toLowerCase())} maxLength="1" />
-        <input type="text" id="lock4" class="oneCharInput" value={lock4()} onInput={(e) => setLock4(e.target.value.toLowerCase())} maxLength="1" />
+        <input type="text" id="lock0" class="oneCharInput" value={lock0()} onInput={(e) => setLock0(e.target.value.toUpperCase())} maxLength="1" />
+        <input type="text" id="lock1" class="oneCharInput" value={lock1()} onInput={(e) => setLock1(e.target.value.toUpperCase())} maxLength="1" />
+        <input type="text" id="lock2" class="oneCharInput" value={lock2()} onInput={(e) => setLock2(e.target.value.toUpperCase())} maxLength="1" />
+        <input type="text" id="lock3" class="oneCharInput" value={lock3()} onInput={(e) => setLock3(e.target.value.toUpperCase())} maxLength="1" />
+        <input type="text" id="lock4" class="oneCharInput" value={lock4()} onInput={(e) => setLock4(e.target.value.toUpperCase())} maxLength="1" />
       </div>
       <div>
         <label for="no-double-letters">no double letters</label>
@@ -95,8 +95,8 @@ function App() {
 function filteredOut(w: string, outlist: string[], fixedLetters: string[]) {
   
   for (let c = 0; c < 5; c++) {
-    let check_letter = w[c]
-    if (fixedLetters[c] && check_letter !== fixedLetters[c]) {
+    let check_letter = w[c].toUpperCase()
+    if (fixedLetters[c] && check_letter !== fixedLetters[c].toUpperCase()) {
       // console.log("no", check_letter)
       return true
     }
