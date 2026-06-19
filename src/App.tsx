@@ -16,6 +16,7 @@ function App() {
   const [lock3, setLock3] = createSignal('')
   const [lock4, setLock4] = createSignal('')
   const [outList, setOutList] = createSignal([''])
+  const [inList, setInList] = createSignal([])
   const nextIndex = (theCount: number) => Math.abs((theCount+offset)*jump)%totalWords
   const randomWord = (no_doub: boolean) => {
     const fixedLetters = [lock0(), lock1(), lock2(), lock3(), lock4()]
@@ -23,7 +24,7 @@ function App() {
     let i = nextIndex(++theCount)
     let tries = 3500
     while (tries > 0 && ((no_doub && hasDoubleLetters(allWords[i]))
-       || filteredOut(allWords[i], outList(), fixedLetters))) {
+       || filteredOut(allWords[i], outList(), fixedLetters, inList()))) {
       i = (i + 1) % totalWords
       tries -= 1
       theCount++
@@ -73,6 +74,10 @@ function App() {
         <input type="text" id="outList" value={outList().join('')} onInput={(e) => setOutList(e.target.value.split('').map(s => s.toUpperCase().trim()))} />
       </div>
       <div>
+        <label for="inList">In List:</label>
+        <input type="text" id="inList" value={inList().join('')} onInput={(e) => setInList(e.target.value.split('').map(s => s.toUpperCase().trim()))} />
+      </div>
+      <div>
         <input type="text" id="lock0" class="oneCharInput" value={lock0()} onInput={(e) => setLock0(e.target.value.toUpperCase())} maxLength="1" />
         <input type="text" id="lock1" class="oneCharInput" value={lock1()} onInput={(e) => setLock1(e.target.value.toUpperCase())} maxLength="1" />
         <input type="text" id="lock2" class="oneCharInput" value={lock2()} onInput={(e) => setLock2(e.target.value.toUpperCase())} maxLength="1" />
@@ -91,9 +96,11 @@ function App() {
   )
 }
 
-// true it word has been filtered out
-function filteredOut(w: string, outlist: string[], fixedLetters: string[]) {
+// returns true, if word has been filtered out
+function filteredOut(w: string, outlist: string[], fixedLetters: string[], inlist: string[]) {
   
+  let inlistFound = 0
+  let inl = Array.from(inlist)
   for (let c = 0; c < 5; c++) {
     let check_letter = w[c].toUpperCase()
     if (fixedLetters[c] && check_letter !== fixedLetters[c].toUpperCase()) {
@@ -104,8 +111,18 @@ function filteredOut(w: string, outlist: string[], fixedLetters: string[]) {
     if (outlist.some((l: string)=>l===check_letter)) {
       return true
     }
+    if (inl.some((l: string)=>l===check_letter)) {
+      const idx = inl.indexOf(check_letter);
+
+      if (idx !== -1) {
+        inl.splice(idx, 1);
+      }
+      console.log(inl, check_letter)
+      inlistFound += 1
+    }
   }
-  return false  
+  console.log(inlist, inlist.length, '>', inlistFound)
+  return inlist.length > inlistFound
 }
 
 
@@ -126,6 +143,7 @@ export default App
 
 // https://github.com/Kinkelin/WordleCompetition/blob/main/data/official/shuffled_real_wordles.txt
 const allWords = [
+'emoji',  
 'scowl',
 'wager',
 'tying',
