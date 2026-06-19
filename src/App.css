@@ -18,6 +18,10 @@ div {
   padding-left: .5rem;
 }
 
+.inListStyle {
+  color:rgb(0, 59, 0);
+  background-color: rgb(240, 226, 117);
+}
 
 .card {
   padding: 2em;

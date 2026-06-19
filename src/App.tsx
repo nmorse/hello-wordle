@@ -71,11 +71,13 @@ function App() {
       </div>
       <div>
         <label for="outList">Out List:</label>
-        <input type="text" id="outList" value={outList().join('')} onInput={(e) => setOutList(e.target.value.split('').map(s => s.toUpperCase().trim()))} />
+        <input type="text" id="outList" value={outList().join('')} 
+                onInput={(e) => setOutList(e.target.value.split('').map(s => s.toUpperCase().trim()))} />
       </div>
       <div>
         <label for="inList">In List:</label>
-        <input type="text" id="inList" value={inList().join('')} onInput={(e) => setInList(e.target.value.split('').map(s => s.toUpperCase().trim()))} />
+        <input type="text" id="inList" value={inList().join('')} 
+                onInput={(e: any) => setInList(e.target.value.split('').map((s: string) => s.toUpperCase().trim()))} />
       </div>
       <div>
         <input type="text" id="lock0" class="oneCharInput" value={lock0()} onInput={(e) => setLock0(e.target.value.toUpperCase())} maxLength="1" />
@@ -117,11 +119,11 @@ function filteredOut(w: string, outlist: string[], fixedLetters: string[], inlis
       if (idx !== -1) {
         inl.splice(idx, 1);
       }
-      console.log(inl, check_letter)
+      // console.log(inl, check_letter)
       inlistFound += 1
     }
   }
-  console.log(inlist, inlist.length, '>', inlistFound)
+  // console.log(inlist, inlist.length, '>', inlistFound)
   return inlist.length > inlistFound
 }
 
