@@ -76,7 +76,7 @@ function App() {
       </div>
       <div>
         <label for="inList">In List:</label>
-        <input type="text" id="inList" value={inList().join('')} 
+        <input type="text" id="inList" value={inList().join('')} class="inListStyle"
                 onInput={(e: any) => setInList(e.target.value.split('').map((s: string) => s.toUpperCase().trim()))} />
       </div>
       <div>
